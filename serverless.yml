@@ -1,0 +1,30 @@
+service: everse-serverless-test
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.8
+  stage: dev
+  region: us-east-1
+
+
+functions:
+  lambda_function:
+    handler: lambda_function.get_token
+    environment:
+      client_id : "client_id"
+      client_secret : "client_secret"
+    timeout: 60
+
+package:
+  exclude:
+    - node_modules/**
+    - venv/**
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
